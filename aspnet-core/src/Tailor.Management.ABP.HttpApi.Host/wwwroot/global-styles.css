@@ -1,0 +1,8 @@
+﻿/* Your Global Styles */
+.lpx-topbar-container, .lpx-mobile-navbar-container {
+    display: none;
+}
+
+/*.navbar{
+    display: none;
+}*/
