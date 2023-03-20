@@ -15,6 +15,13 @@ function configureRoutes(routesService: RoutesService) {
         order: 1,
         layout: eLayoutType.application,
       },
+      {
+        path: '/custom-form',
+        name: 'Custom Form',
+        iconClass: 'fas fa-list',
+        order: 2,
+        layout: eLayoutType.application,
+      }
     ]);
   };
 }

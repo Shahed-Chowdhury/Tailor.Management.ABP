@@ -1,13 +1,14 @@
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '@abp/ng.core';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    // loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-    component: HomeComponent
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
   },
   {
     path: 'account',
@@ -27,6 +28,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
+  { path: 'custom-form', loadChildren: () => import('./custom-form/custom-form.module').then(m => m.CustomFormModule) },
 ];
 
 @NgModule({
