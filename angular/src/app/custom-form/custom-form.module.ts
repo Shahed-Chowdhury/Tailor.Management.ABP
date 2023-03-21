@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CustomFormRoutingModule } from './custom-form-routing.module';
 import { CustomFormComponent } from './custom-form.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { CustomFormComponent } from './custom-form.component';
     CustomFormComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     CustomFormRoutingModule
   ]
 })
