@@ -24,7 +24,8 @@
                     <div class="col-lg-9">
                         <input type="text" [(ngModel)]="FieldLabel" name="label" class="w-100 p-2" id="" placeholder="Label">
                         <input type="text" [(ngModel)]="FieldPlace" name="label" class="w-100 p-2 mt-2" id="" placeholder="Placeholder">
-                        <input type="text" [(ngModel)]="FieldDefaultVal" name="label" class="w-100 p-2 mt-2 mb-2" id="" placeholder="Default value">
+                        <input type="text" *ngIf="FieldInputType !== '3'" [(ngModel)]="FieldDefaultVal" name="label" class="w-100 p-2 mt-2 mb-2" id="" placeholder="Default value">
+                        <input type="text" *ngIf="FieldInputType === '3'" [(ngModel)]="FieldDefaultVal" name="label" class="w-100 p-2 mt-2 mb-2" id="" placeholder="Enter dropdown value options with comma">
                     </div>
                     <div class="col-lg-3">
                         <div>
@@ -48,6 +49,31 @@
     </div>
 </div>
 
-<div class="card demo-form mt-3">
-    <div class="card-header">Form demo</div>
+<!-- Demo form is presented here -->
+<div *ngIf="fields.length > 0" class="card demo-form mt-3" >
+    <div class="card-header"><h5>Form demo</h5></div>
+    <div class="card-body">
+        <div *ngFor="let field of fields">
+
+            <label for="{{field.labelName}}">{{field.labelName}}</label>
+            
+            <input *ngIf="field.fieldType === '1'"
+            type="text"
+            [name]="field.labelName"
+            [placeholder]="field.placeholder"
+            [id]="field.labelName"
+            [value]="field.defaultValue"
+            ><br>
+
+            <textarea *ngIf="field.fieldType === '2'" [name]="field.labelName" [id]="field.labelName" class="w-100"
+            cols="10" rows="5" [placeholder]="field.placeholder" [value]="field.defaultValue"></textarea>
+
+            <select *ngIf="field.fieldType === '3'" [name]="field.labelName" [id]="field.labelName">
+                <option value="" selected disabled>{{field.placeholder}}</option>
+                <option *ngFor="let opt of field.defaultValue.split(',')" [value]="opt">{{opt}}</option>
+            </select>
+            
+
+        </div>
+    </div>
 </div>

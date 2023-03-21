@@ -21,7 +21,7 @@ export class CustomFormComponent implements OnInit {
   FieldPlace: string = null;
   FieldDefaultVal: string = null;
   FieldCheckBox: boolean = false;
-  FieldInputType: string = "";
+  FieldInputType: string = '1';
 
   ngOnInit(): void {
     this.customFormBuilder()
@@ -76,7 +76,7 @@ export class CustomFormComponent implements OnInit {
     this.FieldPlace = "";
     this.FieldDefaultVal = "";
     this.FieldCheckBox = false;
-    this.FieldInputType = "";
+    this.FieldInputType = "1";
 
     console.log(this.fields);
   }
