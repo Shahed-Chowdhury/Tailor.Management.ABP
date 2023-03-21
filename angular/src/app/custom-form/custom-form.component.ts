@@ -17,9 +17,9 @@ export class CustomFormComponent implements OnInit {
   
 
   // Form fields
-  FieldLabel: string = null;
-  FieldPlace: string = null;
-  FieldDefaultVal: string = null;
+  FieldLabel: string = "";
+  FieldPlace: string = "";
+  FieldDefaultVal: string = "";
   FieldCheckBox: boolean = false;
   FieldInputType: string = '1';
 
