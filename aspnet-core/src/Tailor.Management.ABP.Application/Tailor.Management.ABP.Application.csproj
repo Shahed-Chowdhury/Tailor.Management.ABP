@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\..\common.props" />
 
@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Tailor.Management.ABP.Domain\Tailor.Management.ABP.Domain.csproj" />
     <ProjectReference Include="..\Tailor.Management.ABP.Application.Contracts\Tailor.Management.ABP.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Tailor.Management.ABP.EntityFrameworkCore\Tailor.Management.ABP.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

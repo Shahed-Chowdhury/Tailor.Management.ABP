@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Tailor.Management.ABP.FormFields;
+using Tailor.Management.ABP.FormTables;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -24,7 +27,9 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
         ITenantManagementDbContext
     {
         /* Add DbSet properties for your Aggregate Roots / Entities here. */
-        
+        public DbSet<FormTable> FormTables { get; set; }
+        public DbSet<FormField> FormFields { get; set; }
+
         #region Entities from the modules
         
         /* Notice: We only implemented IIdentityDbContext and ITenantManagementDbContext
@@ -75,12 +80,16 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
 
             /* Configure your own tables/entities inside here */
 
-            //builder.Entity<YourEntity>(b =>
-            //{
-            //    b.ToTable(ABPConsts.DbTablePrefix + "YourEntities", ABPConsts.DbSchema);
-            //    b.ConfigureByConvention(); //auto configure for the base class props
-            //    //...
-            //});
+            builder.Entity<FormTable>(b =>
+            {
+                b.ToTable(ABPConsts.DbTablePrefix + "FormTables", ABPConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+            });
+            builder.Entity<FormField>(b =>
+            {
+                b.ToTable(ABPConsts.DbTablePrefix + "FormFields", ABPConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+            });
         }
     }
 }

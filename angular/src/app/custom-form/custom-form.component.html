@@ -1,79 +1,93 @@
 <nav class="navbar navbar-dark bg-dark">
+    <h1 class="navbar-brand" *ngIf="customForm.value.Formtitle.length <= 0">Untitled form</h1>
     <h1 class="navbar-brand"> {{customForm.value.Formtitle}}</h1>
-    
 </nav>
+
 <form class="form" [formGroup]="customForm" (ngSubmit)="onSubmit()">
     <div class="card">
         <div class="card-header">
             <!-- {{customForm.value | json}}
             {{customForm.status | json}} -->
-            <input type="text" class="form-title w-100 px-2 py-3" name="formTitle" formControlName="Formtitle" placeholder="Untitled form">
-            <input type="text" class="w-100 py-2 mt-2 px-2" name="formTitle" formControlName="FormDescription" placeholder="Form description">
+            <input type="text" class="form-title w-100 px-2 py-3" name="formTitle" formControlName="Formtitle"
+                placeholder="Untitled form">
+            <input type="text" class="w-100 py-2 mt-2 px-2" name="formTitle" formControlName="FormDescription"
+                placeholder="Form description">
         </div>
         <div class="card-footer">
-            <button class="btn btn-secondary">Save form</button>
+            <button [disabled]="!customForm.valid" class="btn btn-secondary">Save form</button>
+            <!-- <button class="btn btn-secondary mx-2" (click)="EnableFieldInput()">Create form</button> -->
         </div>
     </div>
 </form>
 
-<div class="dynamic-content mt-3">
-    <!-- All requirements go here -->
-    <div class="card">
-        <div class="card-body">
-                <div class="row w-100">
-                    <div class="col-lg-9">
-                        <input type="text" [(ngModel)]="FieldLabel" name="label" class="w-100 p-2" id="" placeholder="Label">
-                        <input type="text" [(ngModel)]="FieldPlace" name="label" class="w-100 p-2 mt-2" id="" placeholder="Placeholder">
-                        <!-- <input type="text" *ngIf="FieldInputType !== '3'" [(ngModel)]="FieldDefaultVal" name="label" class="w-100 p-2 mt-2 mb-2" id="" placeholder="Default value"> -->
-                        <input type="text" *ngIf="FieldInputType === '3'" [(ngModel)]="FieldDefaultVal" name="label" class="w-100 p-2 mt-2 mb-2" id="" placeholder="Enter dropdown value options with comma">
-                        <div class="mt-3">
-                            <input type="checkbox" [checked]="FieldCheckBox" (change)="FieldCheckBox = !FieldCheckBox" name="isRequired" id="isRequired">
-                            <label class="mx-2" for="isRequired">Required</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div>
-                            <select name="cars" class="w-100 p-2" id="cars" [(ngModel)]="FieldInputType">
-                                <option value="" selected disabled>Select input field type</option>
-                                <option value="1">Input field</option>
-                                <option value="2">Text area</option>
-                                <option value="3">Dropdown</option>
-                            </select>
-                        </div>
-                        <div class="mt-2">
-                            <button class="btn btn-secondary w-100" (click)="AddToForm($event)">Add to form</button>
-                        </div>
-                    </div>
+<!-- All requirements go here -->
+<div class="card mt-3" *ngIf="CreateForm">
+    <div class="card-body">
+        <div class="row w-100">
+            <div class="col-lg-9">
+
+                <input type="text" [(ngModel)]="FieldLabel" name="label" class="w-100 p-2" id="" placeholder="Label">
+                <span class="error-msg" *ngIf="FieldLabel.length < 1">* Field label is required</span>
+
+                <input type="text" [(ngModel)]="FieldPlace" name="label" class="w-100 p-2 mt-2" id=""
+                    placeholder="Placeholder">
+                <span class="error-msg" *ngIf="FieldPlace.length < 1">* Field placeholder is required</span>
+
+                <input type="text" *ngIf="FieldInputType === '3'" [(ngModel)]="FieldDefaultVal" name="label"
+                    class="w-100 p-2 mt-2 mb-2" id="" placeholder="Enter dropdown value options with comma">
+                <span class="error-msg" *ngIf="FieldInputType === '3' && FieldDefaultVal.length < 1">* Field dropdown
+                    option is required</span>
+
+                <div class="mt-3">
+                    <input type="checkbox" [checked]="FieldCheckBox" (change)="FieldCheckBox = !FieldCheckBox"
+                        name="isRequired" id="isRequired">
+                    <label class="mx-2" for="isRequired">Required</label>
                 </div>
+            </div>
+            <div class="col-lg-3">
+                <div>
+                    <select name="cars" class="w-100 p-2" id="cars" [(ngModel)]="FieldInputType">
+                        <option value="" selected disabled>Select input field type</option>
+                        <option value="1">Input field</option>
+                        <option value="2">Text area</option>
+                        <option value="3">Dropdown</option>
+                    </select>
+                </div>
+                <div class="mt-2">
+                    <button [disabled]="
+                            (FieldLabel.length < 1 || FieldPlace.length < 1) ||
+                            (FieldInputType === '3' && FieldDefaultVal.length < 1)" class="btn btn-secondary w-100"
+                        (click)="AddToForm($event)">Add to form</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
+
 <!-- Demo form is presented here -->
-<div *ngIf="fields.length > 0" class="card demo-form mt-3" >
-    <div class="card-header"><h5>Form demo</h5></div>
+<div *ngIf="fields.length > 0" class="card demo-form mt-3">
+    <div class="card-header">
+        <h5>Form demo</h5>
+    </div>
     <div class="card-body">
         <div *ngFor="let field of fields">
 
-            <label for="{{field.labelName}}">{{field.labelName}}</label>
-            
-            <input *ngIf="field.fieldType === '1'"
-            type="text"
-            class="w-100 p-2"
-            [name]="field.labelName"
-            [placeholder]="field.placeholder"
-            [id]="field.labelName"
-            ><br>
+            <label for="{{field.labelName}}">
+                {{field.labelName}}
+                <span *ngIf="field.isRequired === true">*</span>
+            </label>
+
+            <input *ngIf="field.fieldType === '1'" type="text" class="w-100 p-2" [name]="field.labelName"
+                [placeholder]="field.placeholder" [id]="field.labelName"><br>
 
             <textarea *ngIf="field.fieldType === '2'" [name]="field.labelName" [id]="field.labelName" class="w-100 p-2"
-            cols="10" rows="5" [placeholder]="field.placeholder"></textarea>
+                cols="10" rows="5" [placeholder]="field.placeholder"></textarea>
 
             <select *ngIf="field.fieldType === '3'" [name]="field.labelName" [id]="field.labelName" class="w-100 p-2">
-                <option *ngIf="field.placeholder.length > 0" value="" selected>{{field.placeholder}}</option>
+                <option *ngIf="field.placeholder.length > 0" value="" selected disabled>{{field.placeholder}}</option>
                 <option *ngFor="let opt of field.defaultValue.split(',')" [value]="opt">{{opt}}</option>
             </select>
-            
-
         </div>
     </div>
 </div>

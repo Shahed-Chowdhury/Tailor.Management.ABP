@@ -1,3 +1,7 @@
+import { CreateUpdateFormFieldDTO } from './../proxy/form-fields/models';
+import { FormTableDTO, CreateUpdateFormTableDTO } from './../proxy/form-tables/models';
+import { FormTableService } from './../proxy/form-tables/form-table.service';
+import { FormFieldService } from './../proxy/form-fields/form-field.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 
@@ -8,12 +12,18 @@ import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms
 })
 export class CustomFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private formTableService: FormTableService,
+    private formFieldService: FormFieldService
+  ) { }
 
   customForm!: FormGroup
   formTitle: string = "Untitled form"
   registerForm: any
   fields = []
+  // FormTable{items: [], totalCount: 0} as PagedResultDto<AuthorDTO>
+  // FormField: CreateUpdateFormFieldDTO = {}
   
 
   // Form fields
@@ -22,24 +32,11 @@ export class CustomFormComponent implements OnInit {
   FieldDefaultVal: string = "";
   FieldCheckBox: boolean = false;
   FieldInputType: string = '1';
+  CreateForm: boolean = true;
 
   ngOnInit(): void {
     this.customFormBuilder()
   }
-
-  // getFormControlFields(){
-  //   const formGroupFields = {}
-  //   for (const field of Object.keys(this.model)) {
-  //     formGroupFields[field] = new FormControl("");
-  //     this.fields.push(field);
-  //   }
-  //   return formGroupFields;
-  // }
-
-  // buildForm(){
-  //   const formGroupFields = this.getFormControlFields();
-  //   this.registerForm = new FormGroup(formGroupFields);
-  // }
 
   customFormBuilder() {
     this.customForm = this.fb.group({
@@ -50,6 +47,29 @@ export class CustomFormComponent implements OnInit {
 
   onSubmit(){
     console.log(this.customForm);
+    // Need fix: Form table gets created twice
+    // Fixed: duplicate field save on the table
+    let saveToTable: CreateUpdateFormTableDTO = {title: '', description: ''};
+    saveToTable.title = this.customForm.value.Formtitle.length > 0 ? this.customForm.value.Formtitle: 'Untitled form';
+    saveToTable.description = this.customForm.value.FormDescription !== null ? this.customForm.value.FormDescription: '';
+    this.formTableService.create(saveToTable).subscribe((res)=>{
+      console.log(this.fields);
+      this.fields.forEach(field => {
+        let saveToField: CreateUpdateFormFieldDTO = {labelName: "", placeholder: "", isRequired: false, fieldType: '1', defaultValue: '', formId: '' }
+        saveToField.labelName = field.labelName
+        saveToField.placeholder = field.placeholder
+        saveToField.isRequired = field.isRequired
+        saveToField.fieldType = field.fieldType
+        saveToField.defaultValue = field.defaultValue
+        saveToField.formId = res.id
+        this.formFieldService.saveFieldValueByField(saveToField).subscribe((res)=>{})
+      })
+      console.log(res.id);
+    })
+  }
+
+  EnableFieldInput(){
+    this.CreateForm = true
   }
 
   AddToForm(event){
