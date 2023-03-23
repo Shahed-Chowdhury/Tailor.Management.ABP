@@ -11,12 +11,14 @@ namespace Tailor.Management.ABP.FormTables
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<FormFieldDTO> FormFields { get; set; }
 
-        public FormTableDTO() 
-        { 
-            FormFields = new List<FormFieldDTO>();
-        }
+        public List<FormFieldDTO> FormFields { get; set; }
+        //public ICollection<FormFieldDTO> FormFields { get; set; }
+
+        //public FormTableDTO() 
+        //{ 
+        //    FormFields = new List<FormFieldDTO>();
+        //}
     }
 
     public class FormTableDTO2 : AuditedEntityDto<Guid>
@@ -24,11 +26,14 @@ namespace Tailor.Management.ABP.FormTables
         public Guid Id { get; set; }    
         public string Title { get; set; }
         public string Description { get; set; }
-        public ICollection<FormFieldDTO> FormFields { get; set; }
 
-        public FormTableDTO2()
-        {
-            FormFields = new List<FormFieldDTO>();
-        }
+        public List<FormFieldDTO> FormFields { get; set; }
+
+        //public ICollection<FormFieldDTO> FormFields { get; set; }
+
+        //public FormTableDTO2()
+        //{
+        //    FormFields = new List<FormFieldDTO>();
+        //}
     }
 }

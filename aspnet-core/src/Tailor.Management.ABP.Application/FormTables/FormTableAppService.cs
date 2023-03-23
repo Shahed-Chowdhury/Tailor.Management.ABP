@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,10 +17,11 @@ namespace Tailor.Management.ABP.FormTables
 {
     public class FormTableAppService : CrudAppService<FormTable, FormTableDTO, Guid, PagedAndSortedResultRequestDto, CreateUpdateFormTableDTO>
     {
-        private readonly ABPDbContext _context;
-        public FormTableAppService(IRepository<FormTable, Guid> repository, ABPDbContext context) : base(repository)
+        private readonly IRepository<FormField, Guid> _formFieldRepository;
+        public FormTableAppService(IRepository<FormTable, Guid> repository,
+            IRepository<FormField, Guid> formFieldRepo) : base(repository)
         {
-            _context = context;
+            _formFieldRepository = formFieldRepo;
         }
 
         public async Task<List<FormTableDTO>> GetAllTables()
@@ -28,28 +30,24 @@ namespace Tailor.Management.ABP.FormTables
             return ObjectMapper.Map<List<FormTable>, List<FormTableDTO>>(tables);
         }
 
-        public FormTableDTO GetTableWithFields(Guid id)
+        public async Task<FormTableDTO> GetTableWithFields(Guid id)
         {
-            
-                var tables = (
-                from table in _context.FormTables
-                where table.Id == id
-                join fields in _context.FormFields on table.Id equals fields.FormId
-                select new FormTable
-                {
-                    Title = table.Title,
-                    Description = table.Description,
-                    CreationTime = table.CreationTime,
-                    LastModificationTime = table.LastModificationTime,
-                    CreatorId = table.CreatorId,
-                    FormFields = table.FormFields
-                }).FirstOrDefault();
+            var fieldQuery = _formFieldRepository.AsQueryable();
+            var tableQuery = Repository.AsQueryable();
 
-                if(tables == null) { return new FormTableDTO(); }
+            var returnResult = new FormTableDTO();
 
-                var dto = ObjectMapper.Map<FormTable, FormTableDTO>(tables);
-                dto.Id = id;
-                return dto;
+            FormTable tbl = await tableQuery.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (tbl == null)
+            {
+                return null;
+            }
+
+            returnResult = ObjectMapper.Map<FormTable, FormTableDTO>(tbl);
+            var fields = await fieldQuery.Where(x => x.FormId == id).ToListAsync();
+            returnResult.FormFields = ObjectMapper.Map<List<FormField>, List<FormFieldDTO>>(fields);
+            return returnResult;
         }
     }
 }

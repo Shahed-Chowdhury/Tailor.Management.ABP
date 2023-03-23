@@ -30,6 +30,7 @@ const routes: Routes = [
   },
   { path: 'create-custom-form', loadChildren: () => import('./custom-form/custom-form.module').then(m => m.CustomFormModule) },
   { path: 'all-custom-forms', loadChildren: () => import('./all-forms/all-forms.module').then(m => m.AllFormsModule) },
+  { path: 'view-form/:id', loadChildren: () => import('./view-form/view-form.module').then(m => m.ViewFormModule) },
 ];
 
 @NgModule({

@@ -15,10 +15,9 @@ namespace Tailor.Management.ABP.FormFields
 {
     public class FormFieldAppService : CrudAppService<FormField, FormFieldDTO, Guid, PagedAndSortedResultRequestDto, CreateUpdateFormFieldDTO>
     {
-        private readonly ABPDbContext _context;
-        public FormFieldAppService(IRepository<FormField, Guid> repository, ABPDbContext context) : base(repository)
+        public FormFieldAppService(IRepository<FormField, Guid> repository) : base(repository)
         {
-            _context = context;
+
         }
 
         public async Task<CreateUpdateFormFieldDTO> SaveFieldValue(CreateUpdateFormFieldDTO field)

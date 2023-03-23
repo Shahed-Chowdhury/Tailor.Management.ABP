@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { FormTableService } from './../proxy/form-tables/form-table.service';
 import { FormFieldService } from './../proxy/form-fields/form-field.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllFormsComponent implements OnInit {
 
-  constructor(private apiservice: FormTableService) { }
+  constructor(private apiservice: FormTableService, private router: Router) { }
 
   tableList: any
 
@@ -21,18 +22,13 @@ export class AllFormsComponent implements OnInit {
   getAllTables(){
     this.apiservice.getAllTables().subscribe(res => {
       this.tableList = res
-      console.log(this.tableList);
     })
   }
 
   DeleteForm(table){
     let tableId = table.id;
-    console.log(tableId);
     this.apiservice.delete(tableId).subscribe(res => {
-      console.log(res);
       this.getAllTables();
     })
-    // alert("works")
   }
-
 }

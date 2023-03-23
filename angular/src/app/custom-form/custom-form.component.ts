@@ -33,7 +33,7 @@ export class CustomFormComponent implements OnInit {
   FieldDefaultVal: string = '';
   FieldCheckBox: boolean = false;
   FieldInputType: string = '1';
-  CreateForm: boolean = true;
+  CreateForm: boolean = false;
 
   ngOnInit(): void {
     this.customFormBuilder();
@@ -47,9 +47,6 @@ export class CustomFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.customForm);
-    // Need fix: Form table gets created twice
-    // Fixed: duplicate field save on the table
     let saveToTable: CreateUpdateFormTableDTO = { title: '', description: '' };
     saveToTable.title =
       this.customForm.value.Formtitle.length > 0
@@ -58,7 +55,6 @@ export class CustomFormComponent implements OnInit {
     saveToTable.description =
       this.customForm.value.FormDescription !== null ? this.customForm.value.FormDescription : '';
     this.formTableService.create(saveToTable).subscribe(res => {
-      console.log(this.fields);
       this.fields.forEach(field => {
         let saveToField: CreateUpdateFormFieldDTO = {
           labelName: '',
@@ -81,6 +77,7 @@ export class CustomFormComponent implements OnInit {
   }
 
   EnableFieldInput() {
+    event.preventDefault();
     this.CreateForm = true;
   }
 
@@ -108,7 +105,5 @@ export class CustomFormComponent implements OnInit {
     this.FieldDefaultVal = '';
     this.FieldCheckBox = false;
     this.FieldInputType = '1';
-
-    console.log(this.fields);
   }
 }
