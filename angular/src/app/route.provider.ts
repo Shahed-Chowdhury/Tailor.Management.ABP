@@ -16,10 +16,17 @@ function configureRoutes(routesService: RoutesService) {
         layout: eLayoutType.application,
       },
       {
-        path: '/custom-form',
-        name: 'Custom Form',
-        iconClass: 'fas fa-list',
+        path: '/all-custom-forms',
+        name: 'All forms',
+        iconClass: 'fas fa-border-all',
         order: 2,
+        layout: eLayoutType.application,
+      },
+      {
+        path: '/create-custom-form',
+        name: 'Create form',
+        iconClass: 'fas fa-list',
+        order: 3,
         layout: eLayoutType.application,
       }
     ]);

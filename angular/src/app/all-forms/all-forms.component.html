@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+        <div *ngFor="let table of tableList" class="col-lg-3">
+            <div class="card mt-2">
+                <div class="card-header">
+                    {{table.title}}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{table.description}}</p>
+                </div>
+                <div class="card-footer d-flex">
+                    <button class="btn btn-primary">View</button>
+                    <button class="mx-2 btn btn-danger" (click)="DeleteForm(table)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

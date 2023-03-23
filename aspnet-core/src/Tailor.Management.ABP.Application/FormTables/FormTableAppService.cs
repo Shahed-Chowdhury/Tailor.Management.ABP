@@ -22,6 +22,12 @@ namespace Tailor.Management.ABP.FormTables
             _context = context;
         }
 
+        public async Task<List<FormTableDTO>> GetAllTables()
+        {
+            var tables = await Repository.ToListAsync();
+            return ObjectMapper.Map<List<FormTable>, List<FormTableDTO>>(tables);
+        }
+
         public FormTableDTO GetTableWithFields(Guid id)
         {
             

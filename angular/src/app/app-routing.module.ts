@@ -28,7 +28,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
-  { path: 'custom-form', loadChildren: () => import('./custom-form/custom-form.module').then(m => m.CustomFormModule) },
+  { path: 'create-custom-form', loadChildren: () => import('./custom-form/custom-form.module').then(m => m.CustomFormModule) },
+  { path: 'all-custom-forms', loadChildren: () => import('./all-forms/all-forms.module').then(m => m.AllFormsModule) },
 ];
 
 @NgModule({

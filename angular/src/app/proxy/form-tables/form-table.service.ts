@@ -31,6 +31,13 @@ export class FormTableService {
     },
     { apiName: this.apiName });
 
+  getAllTables = () =>
+    this.restService.request<any, FormTableDTO[]>({
+      method: 'GET',
+      url: '/api/app/form-table/tables',
+    },
+    { apiName: this.apiName });
+
   getList = (input: PagedAndSortedResultRequestDto) =>
     this.restService.request<any, PagedResultDto<FormTableDTO>>({
       method: 'GET',
