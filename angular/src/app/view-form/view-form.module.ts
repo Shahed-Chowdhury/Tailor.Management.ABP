@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,7 +11,7 @@ import { ViewFormComponent } from './view-form.component';
     ViewFormComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     ViewFormRoutingModule
   ]
 })

@@ -45,7 +45,7 @@ namespace Tailor.Management.ABP.FormTables
             }
 
             returnResult = ObjectMapper.Map<FormTable, FormTableDTO>(tbl);
-            var fields = await fieldQuery.Where(x => x.FormId == id).ToListAsync();
+            var fields = await fieldQuery.Where(x => x.FormId == id).OrderBy(x => x.CreationTime).ToListAsync();
             returnResult.FormFields = ObjectMapper.Map<List<FormField>, List<FormFieldDTO>>(fields);
             return returnResult;
         }

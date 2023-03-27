@@ -1,11 +1,55 @@
-<div class="card w-100 bg-light mb-3">
-    <div class="card-header">{{formTitle}}</div>
-    <div class="card-body">
-        <p>{{formDesc}}</p>
-    </div>
+<div class="card">
+    <div class="card-header"><h1>{{formTitle}}</h1></div>
+    <div class="card-body">{{formDescription}}</div>
 </div>
 
-<!-- To be continued -->
-<div class="card w-100 bg-light mb-3">
+<!-- <div *ngIf="formFields.length > 0" class="card mt-2">
+    <div class="card-body">
+        <div *ngFor="let field of formFields">
+            <label for="{{field.labelName}}">
+                {{field.labelName}}
+                <span *ngIf="field.isRequired === true">*</span>
+            </label>
 
+            <input *ngIf="field.fieldType === '1'" type="text" class="w-100 p-2" [name]="field.labelName"
+                [placeholder]="field.placeholder" [id]="field.labelName"><br>
+
+            <textarea *ngIf="field.fieldType === '2'" [name]="field.labelName" [id]="field.labelName" class="w-100 p-2"
+                cols="10" rows="5" [placeholder]="field.placeholder"></textarea>
+
+            <select *ngIf="field.fieldType === '3'" [name]="field.labelName" [id]="field.labelName" class="w-100 p-2">
+                <option *ngIf="field.placeholder.length > 0" value="" selected disabled>{{field.placeholder}}</option>
+                <option *ngFor="let opt of field.defaultValue.split(',')" [value]="opt">{{opt}}</option>
+            </select>
+        </div>
+    </div>
+</div> -->
+
+<div class="card">
+    <div class="card-body">
+        <form class="form" [formGroup]="dynamicFields" (ngSubmit)="onSubmit()">
+            <div formArrayName="fields">
+                <div *ngFor="let field of Fields.controls;let i=index">
+                    
+                    <label for="{{field.value.labelName}}">
+                        {{field.value.labelName}}
+                        <span *ngIf="field.value.isRequired === true">*</span>
+                    </label>
+                    <input *ngIf="field.value.fieldType === '1'" [formControlName]="i" type="text" class="w-100 p-2" 
+                    [placeholder]="field.value.placeholder" [id]="field.value.labelName"><br>
+
+                    <textarea *ngIf="field.value.fieldType === '2'" [formControlName]="i" [id]="field.value.labelName" class="w-100 p-2"
+                    cols="10" rows="5" [placeholder]="field.value.placeholder"></textarea>
+
+                    <select *ngIf="field.value.fieldType === '3'" [formControlName]="i" [id]="field.value.labelName" class="w-100 p-2">
+                        <option *ngIf="field.value.placeholder.length > 0" value="" selected disabled>{{field.value.placeholder}}</option>
+                        <option *ngFor="let opt of field.value.defaultValue.split(',')" [value]="opt">{{opt}}</option>
+                    </select>
+
+                </div>
+            </div>
+            
+            <button>PRess</button>
+        </form>
+    </div>
 </div>
