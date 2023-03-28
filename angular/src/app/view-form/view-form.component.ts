@@ -15,32 +15,28 @@ export class ViewFormComponent implements OnInit {
   formDescription: string = ""
   formTitle: string = ""
   formFields: Array<Object> = []
-  dynamicFields: FormGroup
+  dynamicFields: FormGroup = this.fb.group({})
 
   ngOnInit(): void {
-
-    this.createDynamicForm();
     this.getFormWithLabels(this.route.snapshot.params['id'])
   }
 
-  createDynamicForm(){
-    this.dynamicFields = this.fb.group({
-      fields: this.fb.array([])
-    })
-  }
-
   getFormWithLabels(tableId){
+
     this.apiservice.getTableWithFieldsById(tableId).subscribe(res => {
-      // console.log(res);
       this.formTitle = res.title
       this.formDescription = res.description
       this.formFields = res.formFields
       // ---------------------------------------------------
       // ---------------------------------------------------
       this.formFields.forEach(field => {
-        this.Fields.push(this.fb.control(field))
+        if(field["isRequired"]){
+          this.dynamicFields.addControl(field["labelName"], this.fb.control("", [Validators.required]))
+        }
+        else{
+          this.dynamicFields.addControl(field["labelName"], this.fb.control(""))
+        }
       })
-      // console.log(this.Fields.value);
     })
   }
 
@@ -49,7 +45,12 @@ export class ViewFormComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.dynamicFields.get('fields'));
+    console.log(this.dynamicFields);
+    console.log(this.dynamicFields.value);
+  }
+
+  resetForm(){
+    this.dynamicFields.reset()
   }
 
 }
