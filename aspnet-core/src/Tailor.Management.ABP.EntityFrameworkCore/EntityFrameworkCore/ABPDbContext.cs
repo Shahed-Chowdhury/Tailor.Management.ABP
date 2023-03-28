@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Tailor.Management.ABP.FormFields;
+using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -29,6 +30,7 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
         /* Add DbSet properties for your Aggregate Roots / Entities here. */
         public DbSet<FormTable> FormTables { get; set; }
         public DbSet<FormField> FormFields { get; set; }
+        public DbSet<FormResponse> FormResponses { get; set; }
 
         #region Entities from the modules
         
@@ -88,6 +90,11 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
             builder.Entity<FormField>(b =>
             {
                 b.ToTable(ABPConsts.DbTablePrefix + "FormFields", ABPConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+            });
+            builder.Entity<FormResponse>(b =>
+            {
+                b.ToTable(ABPConsts.DbTablePrefix + "FormResponses", ABPConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
             });
         }

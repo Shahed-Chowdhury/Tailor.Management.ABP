@@ -3,10 +3,10 @@
     <div class="card-body">{{formDescription}}</div>
 </div>
 
-<div class="card mt-2">
+<div class="card mt-2" *ngIf="formFields.length > 0">
     <form [formGroup]="dynamicFields" (ngSubmit)="onSubmit()">
         <div class="card-body">
-            
+                <!-- Form fields are not rendered sequentially  -->
                 <div *ngFor="let field of formFields">
                     <label for="{{field.labelName}}">
                         {{field.labelName}}
@@ -15,7 +15,7 @@
             
                     <input *ngIf="field.fieldType === '1'" type="text" class="w-100 p-2" [formControlName]="field.labelName"
                             [placeholder]="field.placeholder" [id]="field.labelName"><br>
-            
+                    
                     <textarea *ngIf="field.fieldType === '2'" [formControlName]="field.labelName" [id]="field.labelName" class="w-100 p-2"
                         cols="10" rows="5" [placeholder]="field.placeholder"></textarea>
                     
