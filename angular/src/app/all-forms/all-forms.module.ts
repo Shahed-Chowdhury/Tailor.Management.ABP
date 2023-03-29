@@ -1,7 +1,7 @@
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { AllFormsRoutingModule } from './all-forms-routing.module';
 import { AllFormsComponent } from './all-forms.component';
 
@@ -12,6 +12,7 @@ import { AllFormsComponent } from './all-forms.component';
   ],
   imports: [
     SharedModule,
+    ThemeSharedModule,
     AllFormsRoutingModule
   ]
 })

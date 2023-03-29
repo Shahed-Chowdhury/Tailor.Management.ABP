@@ -8,9 +8,12 @@ namespace Tailor.Management.ABP.Permissions
     {
         public override void Define(IPermissionDefinitionContext context)
         {
-            var myGroup = context.AddGroup(ABPPermissions.GroupName);
+            //var TailorManagementGroup = context.AddGroup(ABPPermissions.GroupName);
             //Define your own permissions here. Example:
-            //myGroup.AddPermission(ABPPermissions.MyPermission1, L("Permission:MyPermission1"));
+            //TailorManagementGroup.AddPermission(ABPPermissions./*/*MyPermission1*/*/, L("Permission:MyPermission1"));
+            var tailorModules = context.AddGroup("Tailor Modules"); // create a module name
+            tailorModules.AddPermission("Admin");
+            tailorModules.AddPermission("Customer");
         }
 
         private static LocalizableString L(string name)

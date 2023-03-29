@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <h1>{{this.formTitle}} Responses</h1>
+    </div>
+    <div class="card-body">
+        <!-- <div *ngFor="let col of formColumns">{{col.labelName}}</div> -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" *ngFor="let col of formColumns">{{col.labelName}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let response of formResponses">
+                    <td *ngFor="let col of formColumns">
+                        {{response[col.labelName]}}
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

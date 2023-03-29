@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(private oAuthService: OAuthService, private authService: AuthService) {
-    if(!this.hasLoggedIn){this.login()}
+    // if(!this.hasLoggedIn){this.login()}
   }
 
   login() {

@@ -21,6 +21,7 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-border-all',
         order: 2,
         layout: eLayoutType.application,
+        requiredPolicy: 'Admin'
       },
       {
         path: '/create-custom-form',
@@ -28,6 +29,15 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-list',
         order: 3,
         layout: eLayoutType.application,
+        requiredPolicy: 'Admin'
+      },
+      {
+        path: '/invite-user',
+        name: 'Invite user',
+        iconClass: 'fas fa-user',
+        order: 4,
+        layout: eLayoutType.application,
+        requiredPolicy: 'Admin'
       }
     ]);
   };

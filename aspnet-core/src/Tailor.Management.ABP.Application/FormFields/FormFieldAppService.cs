@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tailor.Management.ABP.EntityFrameworkCore;
+using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -15,9 +16,13 @@ namespace Tailor.Management.ABP.FormFields
 {
     public class FormFieldAppService : CrudAppService<FormField, FormFieldDTO, Guid, PagedAndSortedResultRequestDto, CreateUpdateFormFieldDTO>
     {
-        public FormFieldAppService(IRepository<FormField, Guid> repository) : base(repository)
-        {
 
+        private readonly IRepository<FormResponse> _formFieldsRepository;
+
+        public FormFieldAppService(IRepository<FormField, Guid> repository,
+            IRepository<FormResponse> formFieldsRepository) : base(repository)
+        {
+            _formFieldsRepository = formFieldsRepository;
         }
 
         public async Task<CreateUpdateFormFieldDTO> SaveFieldValue(CreateUpdateFormFieldDTO field)
@@ -42,6 +47,24 @@ namespace Tailor.Management.ABP.FormFields
             return ret != null ?
                 new CreateUpdateFormFieldDTO() :
                 throw new UserFriendlyException("Unable to save field");
+        }
+
+        public async Task<List<FormFieldDTO>> GetAllFormFields(Guid formId)
+        {
+            var obj = await Repository.Where(x => x.FormId == formId).Select(x => new FormField
+            {
+                LabelName = x.LabelName
+            }).AsNoTracking().ToListAsync();
+            return ObjectMapper.Map<List<FormField>, List<FormFieldDTO>>(obj);
+        }
+
+        public async Task<List<FormResponseDTO>> GetAllResponsesById(Guid formId)
+        {
+            var obj = await _formFieldsRepository.Where(x => x.FormId == formId).AsNoTracking().Select(x => new FormResponse
+            {
+               Response = x.Response,
+            }).ToListAsync();
+            return ObjectMapper.Map<List<FormResponse>,  List<FormResponseDTO>>(obj);
         }
     }
 }

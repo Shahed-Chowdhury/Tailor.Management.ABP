@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div *ngFor="let table of tableList" class="col-lg-3">
+        <div *ngFor="let table of tableList" class="col-lg-6">
             <div class="card mt-2">
                 <div class="card-header">
                     {{table.title}}
@@ -9,11 +9,27 @@
                     <p class="card-text">{{table.description}}</p>
                 </div>
                 <div class="card-footer d-flex">
-                    <!-- <button class="btn btn-primary" (click)="ViewForm(table)">View</button> -->
                     <a [routerLink]="['/view-form', table.id]" class="btn btn-primary">View</a>
                     <button class="mx-2 btn btn-danger" (click)="DeleteForm(table)">Delete</button>
+                    <button class="btn btn-success" (click)="ShareForm(table)">Share</button>
+                    <button class=" mx-2 btn btn-secondary" (click)="ViewResponse(table)">View Responses</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<abp-modal [(visible)]="isModalOpen">
+  <ng-template #abpHeader>
+    <h3>{{sharedFormModalTitle}}</h3>
+  </ng-template>
+
+  <ng-template #abpBody>
+  <p>{{sharedFormModalLink}}</p>
+  </ng-template>
+
+  <ng-template #abpFooter>
+    <button type="button" class="btn btn-primary" (click)="copyClipboard()">Copy to clipboard</button>
+    <button type="button" class="btn btn-secondary" abpClose>Close</button>
+  </ng-template>
+</abp-modal>

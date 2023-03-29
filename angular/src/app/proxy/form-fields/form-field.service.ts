@@ -2,6 +2,7 @@ import type { CreateUpdateFormFieldDTO, FormFieldDTO } from './models';
 import { RestService } from '@abp/ng.core';
 import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
+import type { FormResponseDTO } from '../form-responses/models';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,20 @@ export class FormFieldService {
     this.restService.request<any, FormFieldDTO>({
       method: 'GET',
       url: `/api/app/form-field/${id}`,
+    },
+    { apiName: this.apiName });
+
+  getAllFormFieldsByFormId = (formId: string) =>
+    this.restService.request<any, FormFieldDTO[]>({
+      method: 'GET',
+      url: `/api/app/form-field/form-fields/${formId}`,
+    },
+    { apiName: this.apiName });
+
+  getAllResponsesByIdByFormId = (formId: string) =>
+    this.restService.request<any, FormResponseDTO[]>({
+      method: 'GET',
+      url: `/api/app/form-field/responses-by-id/${formId}`,
     },
     { apiName: this.apiName });
 

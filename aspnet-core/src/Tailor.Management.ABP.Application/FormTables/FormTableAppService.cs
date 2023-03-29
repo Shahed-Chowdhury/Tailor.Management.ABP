@@ -26,7 +26,7 @@ namespace Tailor.Management.ABP.FormTables
 
         public async Task<List<FormTableDTO>> GetAllTables()
         {
-            var tables = await Repository.ToListAsync();
+            var tables = await Repository.AsNoTracking().ToListAsync();
             return ObjectMapper.Map<List<FormTable>, List<FormTableDTO>>(tables);
         }
 
