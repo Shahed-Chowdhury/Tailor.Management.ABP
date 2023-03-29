@@ -3,14 +3,14 @@
         Invite user
     </div>
     <div class="card-body">
-        <form>
+        <form [formGroup]="inviteForm">
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                <input type="text" formControlName="username" class="form-control" id="username" placeholder="Enter username">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
             </div>
-            <button type="submit" class="btn btn-primary">Send mail</button>
+            <button [disabled]="!inviteForm.valid" type="submit" class="btn btn-primary" (click)="sendEmail()">Send mail</button>
         </form>
     </div>
 </div>

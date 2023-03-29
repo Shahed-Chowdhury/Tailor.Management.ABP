@@ -31,7 +31,6 @@ export class FormResponsesComponent implements OnInit {
 
   getFormResponses(){
     this.formService.getAllResponsesByIdByFormId(this.formId).subscribe(res => {
-      // console.log(res);
       console.log(this.formColumns);
       this.formResponses = res
       var temp = []
