@@ -32,6 +32,7 @@ namespace Tailor.Management.ABP.Emailing
             {
                 //var emailBody = await _templateRenderer.RenderAsync(StandardEmailTemplates.Message, new { message = "ABP Framework provides IEmailSender service that is used to send emails." });
 
+                var baseUrl = _configuration["App:SelfUrl"];
                 var emailBody = await _templateRenderer.RenderAsync(
                     CustomEmailTemplates.InvitedUser,
                     new InvitedUser()
@@ -39,8 +40,8 @@ namespace Tailor.Management.ABP.Emailing
                         UserName = input.UserName,
                         Email = input.Email,
                         UserId = input.UserId,
+                        URL = baseUrl
                     }
-
                 );
 
                 await _emailSender.SendAsync(input.Email, "Invitation from Shahed's Tailor Management App", emailBody);

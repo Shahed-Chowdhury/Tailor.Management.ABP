@@ -65,8 +65,8 @@
                 "inject": true,
                 "bundleName": "bootstrap-ltr.min"
               },
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/styles.scss"
+              
             ],
             "scripts": []
           },
