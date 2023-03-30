@@ -9,8 +9,14 @@
                 <input type="text" formControlName="username" class="form-control" id="username" placeholder="Enter username">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <label for="roles">Roles</label>
+                <select formControlName="role" class="form-select w-100 p-2" id="roles" aria-label="Default select example">
+                    <option value="" selected disabled>Select role</option>
+                    <option *ngFor="let role of roleList" [value]="role.name" >{{role.name}}</option>
+                </select>
             </div>
-            <button [disabled]="!inviteForm.valid" type="submit" class="btn btn-primary" (click)="sendEmail()">Send mail</button>
+            <input type="reset" class="btn btn-danger" value="Reset">
+            <button [disabled]="!inviteForm.valid" type="submit" class="btn btn-primary mx-2" (click)="sendEmail()">Send mail</button>
         </form>
     </div>
 </div>
