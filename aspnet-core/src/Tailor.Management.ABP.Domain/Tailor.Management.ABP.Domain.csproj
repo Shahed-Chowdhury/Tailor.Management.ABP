@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Emailing\Templates\InvitedUser\InvitedUser.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Emailing\Templates\InvitedUser\InvitedUser.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Tailor.Management.ABP.Domain.Shared\Tailor.Management.ABP.Domain.Shared.csproj" />
   </ItemGroup>
 

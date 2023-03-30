@@ -2,6 +2,8 @@
 using Tailor.Management.ABP.FormFields;
 using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
+using Tailor.Management.ABP.InvitedUsers;
+using TailorManagementABP.InvitedUsers;
 
 namespace Tailor.Management.ABP
 {
@@ -18,6 +20,8 @@ namespace Tailor.Management.ABP
             CreateMap<CreateUpdateFormTableDTO, FormTable>();
             CreateMap<FormResponse, FormResponseDTO>();
             CreateMap<CreateUpdateFormResponseDTO, FormResponse>();
+            CreateMap<CreateUpdateInvitedUserDTO, InvitedUser>();
+            CreateMap<InvitedUser, InvitedUserDTO>();
         }
     }
 }

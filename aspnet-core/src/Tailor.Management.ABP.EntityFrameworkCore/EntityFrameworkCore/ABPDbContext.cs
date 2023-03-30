@@ -2,6 +2,7 @@
 using Tailor.Management.ABP.FormFields;
 using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
+using Tailor.Management.ABP.InvitedUsers;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -31,6 +32,7 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
         public DbSet<FormTable> FormTables { get; set; }
         public DbSet<FormField> FormFields { get; set; }
         public DbSet<FormResponse> FormResponses { get; set; }
+        public DbSet<InvitedUser> InvitedUsers { get; set; }
 
         #region Entities from the modules
         
@@ -82,21 +84,30 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
 
             /* Configure your own tables/entities inside here */
 
+            builder.Entity<InvitedUser>(b =>
+            {
+                b.ToTable(ABPConsts.DbTablePrefix + "InvitedUsers", ABPConsts.DbSchema);
+                b.ConfigureByConvention(); //auto configure for the base class props
+            });
+
             builder.Entity<FormTable>(b =>
             {
                 b.ToTable(ABPConsts.DbTablePrefix + "FormTables", ABPConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
             });
+
             builder.Entity<FormField>(b =>
             {
                 b.ToTable(ABPConsts.DbTablePrefix + "FormFields", ABPConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
             });
+
             builder.Entity<FormResponse>(b =>
             {
                 b.ToTable(ABPConsts.DbTablePrefix + "FormResponses", ABPConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props
             });
+            
         }
     }
 }
