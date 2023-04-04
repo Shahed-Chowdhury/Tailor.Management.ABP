@@ -4,11 +4,14 @@ import { CommonModule } from '@angular/common';
 
 import { InviteUserRoutingModule } from './invite-user-routing.module';
 import { InviteUserComponent } from './invite-user.component';
+import { InvitedUserListComponent } from './invited-user-list/invited-user-list.component';
+
 
 
 @NgModule({
   declarations: [
-    InviteUserComponent
+    InviteUserComponent,
+    InvitedUserListComponent
   ],
   imports: [
     SharedModule,

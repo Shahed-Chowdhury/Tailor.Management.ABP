@@ -39,6 +39,13 @@ export class InvitedUserAppServicesService {
     },
     { apiName: this.apiName });
 
+  getInvitedUserList = () =>
+    this.restService.request<any, InvitedUserDTO[]>({
+      method: 'GET',
+      url: '/api/app/invited-user-app-services/invited-user-list',
+    },
+    { apiName: this.apiName });
+
   getList = (input: PagedAndSortedResultRequestDto) =>
     this.restService.request<any, PagedResultDto<InvitedUserDTO>>({
       method: 'GET',

@@ -61,5 +61,18 @@ namespace Tailor.Management.ABP.InvitedUsers
                 throw new UserFriendlyException(ex.Message);
             }
         }
+
+        public async Task<List<InvitedUserDTO>> GetInvitedUserList()
+        {
+            try
+            {
+                var userList = await Repository.AsNoTracking().ToListAsync();
+                return ObjectMapper.Map<List<InvitedUser>, List<InvitedUserDTO>>(userList);
+            }
+            catch(Exception ex)
+            {
+                throw new UserFriendlyException(ex.Message);
+            }
+        }
     }
 }
