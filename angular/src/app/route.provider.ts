@@ -21,7 +21,7 @@ function configureRoutes(routesService: RoutesService) {
         iconClass: 'fas fa-border-all',
         order: 2,
         layout: eLayoutType.application,
-        requiredPolicy: 'Admin'
+        // requiredPolicy: 'Admin'
       },
       {
         path: '/create-custom-form',

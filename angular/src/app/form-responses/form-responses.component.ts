@@ -1,3 +1,4 @@
+import { ExcelService } from './../services/excel.service';
 import { FormFieldService } from './../proxy/form-fields/form-field.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,7 @@ export class FormResponsesComponent implements OnInit {
   formColumns: Array<Object> = []
   formResponses: Array<Object> = []
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private formService: FormFieldService) { }
+  constructor(private excelService: ExcelService, private router: Router, private activatedRoute: ActivatedRoute, private formService: FormFieldService) { }
 
   ngOnInit(): void {
     this.formId = this.activatedRoute.snapshot.params["id"]
@@ -31,15 +32,19 @@ export class FormResponsesComponent implements OnInit {
 
   getFormResponses(){
     this.formService.getAllResponsesByIdByFormId(this.formId).subscribe(res => {
-      console.log(this.formColumns);
+      // console.log(this.formColumns);
       this.formResponses = res
       var temp = []
       this.formResponses.map(data => {
         temp.push(JSON.parse(data["response"]))
       })
       this.formResponses = temp
-      console.log(this.formResponses);
+      // console.log(this.formResponses);
     })
+  }
+
+  downloadResponse(){
+    this.excelService.exportAsExcelFile(this.formResponses, this.formTitle + " responses");
   }
 
 }

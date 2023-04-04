@@ -3,6 +3,7 @@ import { FormTableService } from './../proxy/form-tables/form-table.service';
 import { FormFieldService } from './../proxy/form-fields/form-field.service';
 import { Component, OnInit } from '@angular/core';
 // import {ClipboardModule} from '@angular/cdk/clipboard';
+import { ToasterService } from '@abp/ng.theme.shared';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllFormsComponent implements OnInit {
 
-  constructor(private apiservice: FormTableService, private router: Router) { }
+  constructor(private apiservice: FormTableService, private router: Router, private toaster: ToasterService) { }
 
   tableList: any
   isModalOpen: boolean = false
@@ -47,6 +48,7 @@ export class AllFormsComponent implements OnInit {
 
   copyClipboard(){
     navigator.clipboard.writeText(this.sharedFormModalLink)
+    this.toaster.success("Copied to clipboard", "Success");
   }
 
   ViewResponse(table){
