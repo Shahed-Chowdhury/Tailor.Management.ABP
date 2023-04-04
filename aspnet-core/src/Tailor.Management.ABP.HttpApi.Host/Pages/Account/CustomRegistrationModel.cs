@@ -148,7 +148,7 @@ public class CustomRegistrationModel : AccountPageModel
             }
 
             await RegisterLocalUserAsync();
-            return RedirectToPage("RegisterConfirmation", new { email = Input.EmailAddress }); //TODO: How to ensure safety? IdentityServer requires it however it should be checked somehow!
+            return RedirectToPage(_configuration["App:ClientUrl"]); //TODO: How to ensure safety? IdentityServer requires it however it should be checked somehow!
 
 
         }
@@ -188,7 +188,7 @@ public class CustomRegistrationModel : AccountPageModel
         }
 
         await UserManager.UpdateAsync(user);
-        //await SignInManager.SignInAsync(user, isPersistent: true);
+        await SignInManager.SignInAsync(user, isPersistent: true);
     }
 
     protected virtual async Task RegisterExternalUserAsync(ExternalLoginInfo externalLoginInfo, string emailAddress)

@@ -31,11 +31,12 @@ const routes: Routes = [
       import('@abp/ng.setting-management').then(m => m.SettingManagementModule.forLazy()),
   },
   { path: 'create-custom-form', canActivate: [AuthGuard, PermissionGuard], loadChildren: () => import('./custom-form/custom-form.module').then(m => m.CustomFormModule)},
-  { path: 'all-custom-forms', canActivate: [AuthGuard, PermissionGuard], loadChildren: () => import('./all-forms/all-forms.module').then(m => m.AllFormsModule)},
+  { path: 'all-custom-forms', canActivate: [AuthGuard, PermissionGuard], loadChildren: () => import('./all-forms/all-forms.module').then(m => m.AllFormsModule), data:{requiredPolicy: 'Admin'}},
   { path: 'view-form/:id', canActivate: [], loadChildren: () => import('./view-form/view-form.module').then(m => m.ViewFormModule)}, //, data:{requiredPolicy: 'Customer || Admin'}
   { path: 'form-submitted', canActivate: [], loadChildren: () => import('./form-submitted/form-submitted.module').then(m => m.FormSubmittedModule) },
   { path: 'form-responses/:title/:id', canActivate: [AuthGuard, PermissionGuard], loadChildren: () => import('./form-responses/form-responses.module').then(m => m.FormResponsesModule), data:{requiredPolicy: 'Admin'} },
   { path: 'invite-user', loadChildren: () => import('./invite-user/invite-user.module').then(m => m.InviteUserModule) },
+  { path: 'customer', canActivate: [AuthGuard, PermissionGuard], loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule), data:{requiredPolicy: 'Customer'} },
 ];
 
 @NgModule({

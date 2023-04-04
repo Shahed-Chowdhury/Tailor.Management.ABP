@@ -17,11 +17,11 @@ function configureRoutes(routesService: RoutesService) {
       },
       {
         path: '/all-custom-forms',
-        name: 'All forms',
+        name: 'Form list',
         iconClass: 'fas fa-border-all',
         order: 2,
         layout: eLayoutType.application,
-        // requiredPolicy: 'Admin'
+        requiredPolicy: 'Admin'
       },
       {
         path: '/create-custom-form',
@@ -38,6 +38,14 @@ function configureRoutes(routesService: RoutesService) {
         order: 4,
         layout: eLayoutType.application,
         requiredPolicy: 'Admin'
+      },
+      {
+        path: '/customer/all-forms',
+        name: 'Forms',
+        iconClass: 'fas fa-border-all',
+        order: 5,
+        layout: eLayoutType.application,
+        requiredPolicy: 'Customer'
       }
     ]);
   };
