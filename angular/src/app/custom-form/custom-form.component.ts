@@ -106,4 +106,8 @@ export class CustomFormComponent implements OnInit {
     this.FieldCheckBox = false;
     this.FieldInputType = '1';
   }
+
+  DeleteInputField(index){
+    this.fields.splice(index, 1) // slice method doesn't alter the array, whereas splice alter the array
+  }
 }

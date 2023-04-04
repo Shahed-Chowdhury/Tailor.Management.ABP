@@ -71,23 +71,27 @@
         <h5>Form demo</h5>
     </div>
     <div class="card-body">
-        <div *ngFor="let field of fields">
+        <div *ngFor="let field of fields;let i = index">
 
-            <label for="{{field.labelName}}">
+            <label class="w-100" for="{{field.labelName}}">
                 {{field.labelName}}
                 <span *ngIf="field.isRequired === true">*</span>
             </label>
 
-            <input *ngIf="field.fieldType === '1'" type="text" class="w-100 p-2" [name]="field.labelName"
-                [placeholder]="field.placeholder" [id]="field.labelName"><br>
+            <div class="d-flex">
+                <input *ngIf="field.fieldType === '1'" type="text" class="demo-input p-2" [name]="field.labelName"
+                    [placeholder]="field.placeholder" [id]="field.labelName"><br>
+            
+                <textarea *ngIf="field.fieldType === '2'" [name]="field.labelName" [id]="field.labelName" class="demo-input p-2"
+                    cols="10" rows="5" [placeholder]="field.placeholder"></textarea>
 
-            <textarea *ngIf="field.fieldType === '2'" [name]="field.labelName" [id]="field.labelName" class="w-100 p-2"
-                cols="10" rows="5" [placeholder]="field.placeholder"></textarea>
+                <select *ngIf="field.fieldType === '3'" [name]="field.labelName" [id]="field.labelName" class="demo-input p-2">
+                    <option *ngIf="field.placeholder.length > 0" value="" selected disabled>{{field.placeholder}}</option>
+                    <option *ngFor="let opt of field.defaultValue.split(',')" [value]="opt">{{opt}}</option>
+                </select>
 
-            <select *ngIf="field.fieldType === '3'" [name]="field.labelName" [id]="field.labelName" class="w-100 p-2">
-                <option *ngIf="field.placeholder.length > 0" value="" selected disabled>{{field.placeholder}}</option>
-                <option *ngFor="let opt of field.defaultValue.split(',')" [value]="opt">{{opt}}</option>
-            </select>
+                <button class="btn btn-danger h-25" (click)="DeleteInputField(i)">Delete</button>
+            </div>            
         </div>
     </div>
 </div>
