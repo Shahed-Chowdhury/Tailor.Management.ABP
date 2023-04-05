@@ -19,7 +19,6 @@ export class AppComponent {
 
   constructor(private oAuthService: OAuthService, private authService: AuthService) {
     if (window.location.href == environment.oAuthConfig.redirectUri + '/?force_redirect=true') {
-      console.log("Ch");
       this.authService.navigateToLogin();
     }
   }

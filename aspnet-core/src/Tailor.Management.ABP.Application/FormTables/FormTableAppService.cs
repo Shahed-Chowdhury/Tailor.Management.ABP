@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Tailor.Management.ABP.EntityFrameworkCore;
+using Tailor.Management.ABP.FormFieldModels;
 using Tailor.Management.ABP.FormFields;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -17,9 +18,9 @@ namespace Tailor.Management.ABP.FormTables
 {
     public class FormTableAppService : CrudAppService<FormTable, FormTableDTO, Guid, PagedAndSortedResultRequestDto, CreateUpdateFormTableDTO>
     {
-        private readonly IRepository<FormField, Guid> _formFieldRepository;
+        private readonly IRepository<FormFieldModel, Guid> _formFieldRepository;
         public FormTableAppService(IRepository<FormTable, Guid> repository,
-            IRepository<FormField, Guid> formFieldRepo) : base(repository)
+            IRepository<FormFieldModel, Guid> formFieldRepo) : base(repository)
         {
             _formFieldRepository = formFieldRepo;
         }
@@ -45,8 +46,8 @@ namespace Tailor.Management.ABP.FormTables
             }
 
             returnResult = ObjectMapper.Map<FormTable, FormTableDTO>(tbl);
-            var fields = await fieldQuery.Where(x => x.FormId == id).OrderBy(x => x.CreationTime).ToListAsync();
-            returnResult.FormFields = ObjectMapper.Map<List<FormField>, List<FormFieldDTO>>(fields);
+            var fields = await fieldQuery.Where(x => x.FormId == id).OrderBy(x => x.SlNo).ToListAsync();
+            returnResult.FormFields = ObjectMapper.Map<List<FormFieldModel>, List<FormFieldDTO>>(fields);
             return returnResult;
         }
     }

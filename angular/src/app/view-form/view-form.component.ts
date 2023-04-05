@@ -49,10 +49,6 @@ export class ViewFormComponent implements OnInit {
     })
   }
 
-  // get Fields(): FormArray{
-  //   return this.dynamicFields.get('fields') as FormArray;
-  // }
-
   onSubmit(){
     console.log(this.dynamicFields);
     console.log(this.formId);

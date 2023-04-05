@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tailor.Management.ABP.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,9 +11,10 @@ using Volo.Abp.EntityFrameworkCore;
 namespace Tailor.Management.ABP.Migrations
 {
     [DbContext(typeof(ABPDbContext))]
-    partial class ABPDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230405090655_FormLabels")]
+    partial class FormLabels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace Tailor.Management.ABP.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Tailor.Management.ABP.FormFieldModels.FormFieldModel", b =>
+            modelBuilder.Entity("Tailor.Management.ABP.FormFields.FormField", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -76,9 +78,6 @@ namespace Tailor.Management.ABP.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("SlNo")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -2128,7 +2127,7 @@ namespace Tailor.Management.ABP.Migrations
                     b.ToTable("AbpTenantConnectionStrings");
                 });
 
-            modelBuilder.Entity("Tailor.Management.ABP.FormFieldModels.FormFieldModel", b =>
+            modelBuilder.Entity("Tailor.Management.ABP.FormFields.FormField", b =>
                 {
                     b.HasOne("Tailor.Management.ABP.FormTables.FormTable", "FormTable")
                         .WithMany("FormFields")

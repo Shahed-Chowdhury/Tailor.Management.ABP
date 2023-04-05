@@ -6,7 +6,7 @@ using Volo.Abp.Application.Dtos;
 
 namespace Tailor.Management.ABP.FormFields
 {
-    public class FormFieldDTO: AuditedEntityDto<Guid>
+    public class FormFieldDTO : AuditedEntityDto<Guid>
     {
         public string LabelName { get; set; }
 
@@ -19,5 +19,7 @@ namespace Tailor.Management.ABP.FormFields
         public string DefaultValue { get; set; }
 
         public Guid FormId { get; set; }
+
+        public int SlNo { get; set; }
     }
 }

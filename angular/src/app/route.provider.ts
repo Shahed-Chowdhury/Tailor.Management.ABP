@@ -40,7 +40,7 @@ function configureRoutes(routesService: RoutesService) {
         requiredPolicy: 'Admin'
       },
       {
-        path: '/customer/all-forms',
+        path: '/customer/view-all-forms',
         name: 'Forms',
         iconClass: 'fas fa-border-all',
         order: 5,

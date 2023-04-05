@@ -20,6 +20,8 @@ export class AllFormsComponent implements OnInit {
   isModalOpen: boolean = false
   sharedFormModalTitle: string = ""
   sharedFormModalLink: string = ""
+  copyClipboardBtnMsg: string = "Copy to clipboard"
+  disableCopyBtn: boolean = false;
 
   ngOnInit(): void {
     this.getAllTables()
@@ -44,11 +46,22 @@ export class AllFormsComponent implements OnInit {
     this.sharedFormModalLink = window.location.protocol + "//" + location.host +"/view-form/"+tableId
     this.isModalOpen = true
     // alert(window.location.protocol + "//" + location.host +"/view-form/"+tableId)
+    navigator['clipboard'].readText().then((data)=>{
+      if(this.sharedFormModalLink === data){
+        this.copyClipboardBtnMsg = "Copied to clipboard"
+        this.disableCopyBtn = true
+      }else{
+        this.copyClipboardBtnMsg = "Copy to clipboard"
+        this.disableCopyBtn = false
+      }
+    });
   }
 
   copyClipboard(){
     navigator.clipboard.writeText(this.sharedFormModalLink)
     this.toaster.success("Copied to clipboard", "Success");
+    this.copyClipboardBtnMsg = "Copied to clipboard"
+    this.disableCopyBtn = true
   }
 
   ViewResponse(table){

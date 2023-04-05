@@ -55,6 +55,7 @@ export class CustomFormComponent implements OnInit {
     saveToTable.description =
       this.customForm.value.FormDescription !== null ? this.customForm.value.FormDescription : '';
     this.formTableService.create(saveToTable).subscribe(res => {
+      var slno = 1
       this.fields.forEach(field => {
         let saveToField: CreateUpdateFormFieldDTO = {
           labelName: '',
@@ -63,6 +64,7 @@ export class CustomFormComponent implements OnInit {
           fieldType: '1',
           defaultValue: '',
           formId: '',
+          slNo: 0
         };
         saveToField.labelName = field.labelName;
         saveToField.placeholder = field.placeholder;
@@ -70,6 +72,9 @@ export class CustomFormComponent implements OnInit {
         saveToField.fieldType = field.fieldType;
         saveToField.defaultValue = field.defaultValue;
         saveToField.formId = res.id;
+        saveToField.slNo = slno;
+        //console.log(saveToField, slno); // added for test
+        slno++;
         this.formFieldService.saveFieldValueByField(saveToField).subscribe(res => {});
       });
       this.router.navigate(['/all-custom-forms'])

@@ -5,7 +5,7 @@ import { AllFormsComponent } from './all-forms/all-forms.component';
 
 const routes: Routes = [
   { path: '', component: CustomerComponent },
-  {path: 'all-forms', component:  AllFormsComponent}
+  {path: 'view-all-forms', component:  AllFormsComponent}
 ];
 
 @NgModule({

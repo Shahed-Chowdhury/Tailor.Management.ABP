@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tailor.Management.ABP.EntityFrameworkCore;
+using Tailor.Management.ABP.FormFieldModels;
 using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
 using Volo.Abp;
@@ -14,12 +15,12 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Tailor.Management.ABP.FormFields
 {
-    public class FormFieldAppService : CrudAppService<FormField, FormFieldDTO, Guid, PagedAndSortedResultRequestDto, CreateUpdateFormFieldDTO>
+    public class FormFieldAppService : CrudAppService<FormFieldModel, FormFieldDTO, Guid, PagedAndSortedResultRequestDto, CreateUpdateFormFieldDTO>
     {
 
         private readonly IRepository<FormResponse> _formFieldsRepository;
 
-        public FormFieldAppService(IRepository<FormField, Guid> repository,
+        public FormFieldAppService(IRepository<FormFieldModel, Guid> repository,
             IRepository<FormResponse> formFieldsRepository) : base(repository)
         {
             _formFieldsRepository = formFieldsRepository;
@@ -34,7 +35,8 @@ namespace Tailor.Management.ABP.FormFields
                 x.Placeholder == field.Placeholder &&
                 x.FieldType == field.FieldType &&
                 x.DefaultValue == field.DefaultValue &&
-                x.FormId == field.FormId
+                x.FormId == field.FormId &&
+                x.SlNo == field.SlNo
             ).ToList();
 
             if (checkDuplicate.Count > 0)
@@ -51,11 +53,11 @@ namespace Tailor.Management.ABP.FormFields
 
         public async Task<List<FormFieldDTO>> GetAllFormFields(Guid formId)
         {
-            var obj = await Repository.Where(x => x.FormId == formId).Select(x => new FormField
+            var obj = await Repository.Where(x => x.FormId == formId).OrderBy(x => x.SlNo).Select(x => new FormFieldModel
             {
                 LabelName = x.LabelName
             }).AsNoTracking().ToListAsync();
-            return ObjectMapper.Map<List<FormField>, List<FormFieldDTO>>(obj);
+            return ObjectMapper.Map<List<FormFieldModel>, List<FormFieldDTO>>(obj);
         }
 
         public async Task<List<FormResponseDTO>> GetAllResponsesById(Guid formId)

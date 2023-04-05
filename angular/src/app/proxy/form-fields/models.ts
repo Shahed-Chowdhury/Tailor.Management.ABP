@@ -7,6 +7,7 @@ export interface CreateUpdateFormFieldDTO {
   fieldType: string;
   defaultValue?: string;
   formId: string;
+  slNo: number;
 }
 
 export interface FormFieldDTO extends AuditedEntityDto<string> {
@@ -16,4 +17,5 @@ export interface FormFieldDTO extends AuditedEntityDto<string> {
   fieldType?: string;
   defaultValue?: string;
   formId?: string;
+  slNo: number;
 }

@@ -29,7 +29,8 @@
   </ng-template>
 
   <ng-template #abpFooter>
-    <button type="button" class="btn btn-primary" (click)="copyClipboard()">Copy to clipboard</button>
+    <!-- <button [disabled]="disableCopyBtn" type="button" class="btn btn-primary" (click)="copyClipboard()"><i class="fa-solid fa-copy"></i></button> -->
+    <button [disabled]="disableCopyBtn" type="button" class="btn btn-primary" (click)="copyClipboard()">{{copyClipboardBtnMsg}}</button>
     <button type="button" class="btn btn-secondary" abpClose>Close</button>
   </ng-template>
 </abp-modal>

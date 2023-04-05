@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Tailor.Management.ABP.FormTables;
 using Volo.Abp.Domain.Entities.Auditing;
 
-namespace Tailor.Management.ABP.FormFields
+namespace Tailor.Management.ABP.FormFieldModels
 {
-    public class FormField: AuditedAggregateRoot<Guid>
+    public class FormFieldModel: AuditedAggregateRoot<Guid>
     {
         //LabelName, Placeholder, IsRequired, FieldType, DefaultValue?, FormId
         [Required, MaxLength(100)]
@@ -22,10 +22,10 @@ namespace Tailor.Management.ABP.FormFields
         public string FieldType { get; set; }
         [MaxLength(100)]
         public string DefaultValue { get; set; }
+        public int SlNo { get; set; }
 
         [Required, ForeignKey("FormTable")]
         public Guid FormId { get; set; }
         public FormTable FormTable { get; set; }
-
     }
 }

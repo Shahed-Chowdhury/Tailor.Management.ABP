@@ -24,5 +24,8 @@ namespace Tailor.Management.ABP.FormFields
 
         [Required]
         public Guid FormId { get; set; }
+
+        [Required]
+        public int SlNo { get; set; }
     }
 }

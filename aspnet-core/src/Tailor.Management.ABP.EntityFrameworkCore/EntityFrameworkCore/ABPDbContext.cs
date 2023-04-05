@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tailor.Management.ABP.FormFields;
+using Tailor.Management.ABP.FormFieldModels;
+//using Tailor.Management.ABP.FormFields;
 using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
 using Tailor.Management.ABP.InvitedUsers;
@@ -30,7 +31,7 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
     {
         /* Add DbSet properties for your Aggregate Roots / Entities here. */
         public DbSet<FormTable> FormTables { get; set; }
-        public DbSet<FormField> FormFields { get; set; }
+        public DbSet<FormFieldModel> FormFields { get; set; }
         public DbSet<FormResponse> FormResponses { get; set; }
         public DbSet<InvitedUser> InvitedUsers { get; set; }
 
@@ -96,7 +97,7 @@ namespace Tailor.Management.ABP.EntityFrameworkCore
                 b.ConfigureByConvention(); //auto configure for the base class props
             });
 
-            builder.Entity<FormField>(b =>
+            builder.Entity<FormFieldModel>(b =>
             {
                 b.ToTable(ABPConsts.DbTablePrefix + "FormFields", ABPConsts.DbSchema);
                 b.ConfigureByConvention(); //auto configure for the base class props

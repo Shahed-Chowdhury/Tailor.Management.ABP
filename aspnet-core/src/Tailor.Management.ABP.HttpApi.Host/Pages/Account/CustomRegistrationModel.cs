@@ -148,7 +148,8 @@ public class CustomRegistrationModel : AccountPageModel
             }
 
             await RegisterLocalUserAsync();
-            return RedirectToPage(_configuration["App:ClientUrl"]); //TODO: How to ensure safety? IdentityServer requires it however it should be checked somehow!
+            return RedirectSafely(ReturnUrl ?? _configuration["App:ClientUrl"] + "?force_redirect=true", ReturnUrlHash);
+            //return RedirectToPage(_configuration["App:ClientUrl"]); //TODO: How to ensure safety? IdentityServer requires it however it should be checked somehow!
 
 
         }

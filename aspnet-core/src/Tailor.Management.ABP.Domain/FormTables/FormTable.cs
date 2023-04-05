@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tailor.Management.ABP.FormFields;
+using Tailor.Management.ABP.FormFieldModels;
+//using Tailor.Management.ABP.FormFields;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Tailor.Management.ABP.FormTables
@@ -16,11 +17,11 @@ namespace Tailor.Management.ABP.FormTables
         [MaxLength(100)]
         public string Description { get; set; }
 
-        public ICollection<FormField> FormFields { get; set; }
+        public ICollection<FormFieldModel> FormFields { get; set; }
 
         public FormTable() 
         {
-            FormFields = new List<FormField>();
+            FormFields = new List<FormFieldModel>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Tailor.Management.ABP.FormFieldModels;
 using Tailor.Management.ABP.FormFields;
 using Tailor.Management.ABP.FormResponses;
 using Tailor.Management.ABP.FormTables;
@@ -14,8 +15,8 @@ namespace Tailor.Management.ABP
             /* You can configure your AutoMapper mapping configuration here.
              * Alternatively, you can split your mapping configurations
              * into multiple profile classes for a better organization. */
-            CreateMap<FormField, FormFieldDTO>();
-            CreateMap<CreateUpdateFormFieldDTO, FormField>();
+            CreateMap<FormFieldModel, FormFieldDTO>();
+            CreateMap<CreateUpdateFormFieldDTO, FormFieldModel>();
             CreateMap<FormTable,  FormTableDTO>();
             CreateMap<CreateUpdateFormTableDTO, FormTable>();
             CreateMap<FormResponse, FormResponseDTO>();
